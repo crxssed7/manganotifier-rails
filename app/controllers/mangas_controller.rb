@@ -1,3 +1,5 @@
+require 'net/http'
+
 class MangasController < ApplicationController
   before_action :set_manga, only: %i[ show edit update destroy ]
 
@@ -15,35 +17,33 @@ class MangasController < ApplicationController
     @manga = Manga.new
   end
 
-  # GET /mangas/1/edit
-  def edit
-  end
-
   # POST /mangas or /mangas.json
   def create
     @manga = Manga.new(manga_params)
 
-    respond_to do |format|
-      if @manga.save
-        format.html { redirect_to manga_url(@manga), notice: "Manga was successfully created." }
-        format.json { render :show, status: :created, location: @manga }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @manga.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+    # Get the details from mangapill (for now)
+    uri = URI("https://mangapill.com/manga/#{@manga.external_id}")
+    res = Net::HTTP.get_response(uri)
+    if res.is_a? Net::HTTPSuccess
+      html = res.body
+      document = Nokogiri::HTML.parse(html)
+      name = document.css("h1")[0].text
+      image = document.css("img")[0]["data-src"]
+      last_chapter = document.css("a.p-1")[0].text
 
-  # PATCH/PUT /mangas/1 or /mangas/1.json
-  def update
-    respond_to do |format|
-      if @manga.update(manga_params)
-        format.html { redirect_to manga_url(@manga), notice: "Manga was successfully updated." }
-        format.json { render :show, status: :ok, location: @manga }
+      @manga.name = name
+      @manga.last_chapter = last_chapter
+      @manga.source = "mangapill"
+      @manga.image = image
+      @manga.last_refreshed = Time.current
+
+      if @manga.save
+        redirect_to manga_url(@manga), notice: "Manga was successfully created."
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @manga.errors, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity
       end
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +51,7 @@ class MangasController < ApplicationController
   def destroy
     @manga.destroy
 
-    respond_to do |format|
-      format.html { redirect_to mangas_url, notice: "Manga was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to mangas_url, notice: "Manga was successfully destroyed."
   end
 
   private
@@ -65,6 +62,6 @@ class MangasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def manga_params
-      params.require(:manga).permit(:name, :external_id, :last_chapter, :source, :image, :last_refreshed)
+      params.require(:manga).permit(:external_id)
     end
 end

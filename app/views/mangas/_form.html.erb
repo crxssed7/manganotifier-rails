@@ -1,44 +1,7 @@
 <%= form_with(model: manga) do |form| %>
-  <% if manga.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(manga.errors.count, "error") %> prohibited this manga from being saved:</h2>
-
-      <ul>
-        <% manga.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
   <div>
     <%= form.label :external_id, style: "display: block" %>
-    <%= form.text_field :external_id %>
-  </div>
-
-  <div>
-    <%= form.label :last_chapter, style: "display: block" %>
-    <%= form.text_field :last_chapter %>
-  </div>
-
-  <div>
-    <%= form.label :source, style: "display: block" %>
-    <%= form.text_field :source %>
-  </div>
-
-  <div>
-    <%= form.label :image, style: "display: block" %>
-    <%= form.text_field :image %>
-  </div>
-
-  <div>
-    <%= form.label :last_refreshed, style: "display: block" %>
-    <%= form.datetime_field :last_refreshed %>
+    <%= form.text_field :external_id, required: true %>
   </div>
 
   <div>

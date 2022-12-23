@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :mangas
+  resources :mangas, only: [:index, :show, :destroy, :new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "mangas#index"
+  root "mangas#index"
 end

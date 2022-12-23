@@ -1,13 +1,10 @@
 <div id="<%= dom_id manga %>">
-  <p>
-    <strong>Name:</strong>
-    <%= manga.name %>
-  </p>
-
-  <p>
-    <strong>External:</strong>
-    <%= manga.external_id %>
-  </p>
+  <center>
+    <img src="<%= manga.image %>" class="rounded" max-width="200px" width="200px" alt="<%= manga.name %> Poster">
+    <br/>
+    <br/>
+    <h1><%= manga.name %></h1>
+  </center>
 
   <p>
     <strong>Last chapter:</strong>
@@ -15,18 +12,11 @@
   </p>
 
   <p>
-    <strong>Source:</strong>
-    <%= manga.source %>
-  </p>
-
-  <p>
-    <strong>Image:</strong>
-    <%= manga.image %>
-  </p>
-
-  <p>
     <strong>Last refreshed:</strong>
     <%= manga.last_refreshed %>
   </p>
+
+  <button type="button" class="btn btn-primary" disabled>Refresh</button>
+  <%= button_to "<i class='bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "btn btn-danger" %>
 
 </div>
