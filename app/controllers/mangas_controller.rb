@@ -21,27 +21,10 @@ class MangasController < ApplicationController
   def create
     @manga = Manga.new(manga_params)
 
-    # Get the details from mangapill (for now)
-    uri = URI("https://mangapill.com/manga/#{@manga.external_id}")
-    res = Net::HTTP.get_response(uri)
-    if res.is_a? Net::HTTPSuccess
-      html = res.body
-      document = Nokogiri::HTML.parse(html)
-      name = document.css("h1")[0].text
-      image = document.css("img")[0]["data-src"]
-      last_chapter = document.css("a.p-1")[0].text
+    source = Sources::Mangapill.new(manga: @manga)
 
-      @manga.name = name
-      @manga.last_chapter = last_chapter
-      @manga.source = "mangapill"
-      @manga.image = image
-      @manga.last_refreshed = Time.current
-
-      if @manga.save
-        redirect_to manga_url(@manga), notice: "Manga was successfully created."
-      else
-        render :new, status: :unprocessable_entity
-      end
+    if source.crawl
+      redirect_to manga_url(@manga), notice: "Manga was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
