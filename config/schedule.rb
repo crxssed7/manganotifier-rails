@@ -19,5 +19,5 @@
 
 # Learn more: http://github.com/javan/whenever
 every "14 15 * * *" do
-  runner "NotifyJob.perform_now"
+  runner "NotifyWorker.perform_now"
 end

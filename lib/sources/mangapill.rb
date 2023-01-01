@@ -33,18 +33,21 @@ module Sources
       # Get the last chapter of the manga
       uri = URI("https://mangapill.com/manga/#{manga.external_id}")
       res = Net::HTTP.get_response(uri)
-      if res.is_a? Net::HTTPSuccess
+
+      if res.is_a? Net::HTTPOK
         html = res.body
         document = Nokogiri::HTML.parse(html)
         last_chapter = document.css("a.p-1")[0].text
-
-        if last_chapter != manga.last_chapter
-          # Trigger the notifier.
-        end
-
+        
+        original_last_chapter = manga.last_chapter
         manga.last_chapter = last_chapter
         manga.last_refreshed = Time.current
+        manga.save
+
+        return true if original_last_chapter != last_chapter
       end
+
+      false
     end
   end
 end
