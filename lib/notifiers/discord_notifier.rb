@@ -18,7 +18,5 @@ module Notifiers
         ]
       }
     end
-
-    def webhook_url = "https://discordapp.com/api/webhooks/897554074143162378/5jns6Y4wYjiC7fGBW3NZ3iVZXWkuQtBQSMHPd-90CiBlxaIweJTKZNUuCP2LjkzeCOaN"
   end
 end

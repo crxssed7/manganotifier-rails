@@ -6,7 +6,12 @@
 
   <div>
     <%= form.label :source, style: "display: block" %>
-    <%= form.collection_select :source, Manga::SOURCES.keys, :to_s, :to_s, {include_blank: false} %>
+    <%= form.collection_select :source, Manga::SOURCES.keys.sort, :to_s, :to_s, {include_blank: false} %>
+  </div>
+
+  <div>
+    <%= form.label :notifier_ids, style: "display: block" %>
+    <%= form.collection_select :notifier_ids, Notifier.all, :id, :name, {}, { multiple: true } %>
   </div>
 
   <div>

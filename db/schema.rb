@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_205812) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_21_204925) do
   create_table "mangas", force: :cascade do |t|
     t.string "name"
     t.string "external_id"
@@ -21,6 +21,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_205812) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["external_id", "source"], name: "index_mangas_on_external_id_and_source", unique: true
+  end
+
+  create_table "mangas_notifiers", id: false, force: :cascade do |t|
+    t.integer "manga_id", null: false
+    t.integer "notifier_id", null: false
+  end
+
+  create_table "notifiers", force: :cascade do |t|
+    t.string "name"
+    t.string "webhook_url"
+    t.string "notifier_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

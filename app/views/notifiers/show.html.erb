@@ -1,0 +1,8 @@
+<%= render @notifier %>
+
+<div>
+  <%= link_to "Edit this notifier", edit_notifier_path(@notifier) %> |
+  <%= link_to "Back to notifiers", notifiers_path %>
+
+  <%= button_to "Destroy this notifier", @notifier, method: :delete %>
+</div>

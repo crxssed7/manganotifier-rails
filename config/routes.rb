@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     post :refresh, on: :member
     post :refresh_all, on: :collection
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
+  resources :notifiers
+
   root "mangas#index"
 end

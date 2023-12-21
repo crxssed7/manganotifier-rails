@@ -2,24 +2,21 @@
 
 module Notifiers
   class Base
-    attr_reader :manga
+    attr_reader :manga, :notifier
 
-    def initialize(manga:)
+    def initialize(manga:, notifier:)
       @manga = manga
+      @notifier = notifier
     end
 
     def notify
-      uri = URI(webhook_url)
+      uri = URI(notifier.webhook_url)
       Net::HTTP.post uri, body.to_json, { 'Content-Type' => 'application/json' }
     end
 
     private
 
     def body
-      raise "Implement in subclass"
-    end
-
-    def webhook_url
       raise "Implement in subclass"
     end
   end

@@ -31,18 +31,14 @@ class MangasController < ApplicationController
   end
 
   def refresh
-    if @manga.source_instance.refresh
-      Notifiers::DiscordNotifier.new(manga: @manga).notify
-    end
+    @manga.refresh
     redirect_back(fallback_location: root_path)
   end
 
   def refresh_all
     # TODO: Set off a job in background
     Manga.all.each do |manga|
-      if manga.source_instance.refresh
-        Notifiers::DiscordNotifier.new(manga: @manga).notify
-      end
+      manga.refresh
     end
     redirect_back(fallback_location: root_path)
   end
@@ -54,6 +50,6 @@ class MangasController < ApplicationController
   end
 
   def manga_params
-    params.require(:manga).permit(:external_id, :source)
+    params.require(:manga).permit(:external_id, :source, notifier_ids: [])
   end
 end

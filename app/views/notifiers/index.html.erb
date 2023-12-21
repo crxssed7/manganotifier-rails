@@ -1,0 +1,9 @@
+<h1>Notifiers</h1>
+
+<div id="notifiers">
+  <% @notifiers.each do |notifier| %>
+    <%= render notifier %>
+  <% end %>
+</div>
+
+<%= link_to "New notifier", new_notifier_path %>
