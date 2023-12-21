@@ -1,7 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
-<%= link_to "New manga", new_manga_path, class: "btn btn-primary" %>
-<button type="button" class="btn btn-primary" disabled>Refresh all</button>
+<div class="display-flex">
+  <%= link_to "New manga", new_manga_path, class: "btn btn-primary" %>
+  <%= button_to "Refresh all", refresh_all_mangas_path, method: :post, class: "btn btn-primary" %>
+</div>
 
 <div id="mangas">
   <% @mangas.each do |manga| %>
@@ -10,7 +10,7 @@
         <div class="chip-img" style="background-image: url('<%= manga.image %>');"></div>
         <div>
           <div class="chip-name-wrapper">
-            <h5><%= manga.name %></h5>
+            <h5><%= manga.name %> - on <%= manga.source %></h5>
           </div>
           <p>
             <small class="text-muted"><strong>Last chapter:</strong> <%= manga.last_chapter %></small>
@@ -21,6 +21,7 @@
           <div class="display-flex">
             <%= link_to "<i class='bi bi-eye-fill'></i>".html_safe, manga, class: "btn btn-primary" %>
             <%= button_to "<i class='bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "btn btn-danger" %>
+            <%= button_to "Refresh", refresh_manga_path(manga), method: :post, class: "btn btn-primary" %>
           </div>
         </div>
       </div>

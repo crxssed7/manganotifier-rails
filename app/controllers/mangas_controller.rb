@@ -1,50 +1,59 @@
 require 'net/http'
 
 class MangasController < ApplicationController
-  before_action :set_manga, only: %i[ show edit update destroy ]
+  before_action :set_manga, only: %i[ show edit update destroy refresh ]
 
-  # GET /mangas or /mangas.json
   def index
     @mangas = Manga.all
   end
 
-  # GET /mangas/1 or /mangas/1.json
   def show
   end
 
-  # GET /mangas/new
   def new
     @manga = Manga.new
   end
 
-  # POST /mangas or /mangas.json
   def create
     @manga = Manga.new(manga_params)
 
-    source = Sources::Mangapill.new(manga: @manga)
-
-    if source.crawl
+    if @manga.source_instance.crawl
       redirect_to manga_url(@manga), notice: "Manga was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      redirect_to new_manga_path, notice: "Could not create manga."
     end
   end
 
-  # DELETE /mangas/1 or /mangas/1.json
   def destroy
     @manga.destroy
 
     redirect_to mangas_url, notice: "Manga was successfully destroyed."
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_manga
-      @manga = Manga.find(params[:id])
+  def refresh
+    if @manga.source_instance.refresh
+      Notifiers::DiscordNotifier.new(manga: @manga).notify
     end
+    redirect_back(fallback_location: root_path)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def manga_params
-      params.require(:manga).permit(:external_id)
+  def refresh_all
+    # TODO: Set off a job in background
+    Manga.all.each do |manga|
+      if manga.source_instance.refresh
+        Notifiers::DiscordNotifier.new(manga: @manga).notify
+      end
     end
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def set_manga
+    @manga = Manga.find(params[:id])
+  end
+
+  def manga_params
+    params.require(:manga).permit(:external_id, :source)
+  end
 end

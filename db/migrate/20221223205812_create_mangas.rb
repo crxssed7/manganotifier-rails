@@ -10,5 +10,7 @@ class CreateMangas < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :mangas, [:external_id, :source], unique: true
   end
 end

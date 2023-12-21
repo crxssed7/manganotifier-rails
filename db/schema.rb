@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_205812) do
     t.datetime "last_refreshed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_id", "source"], name: "index_mangas_on_external_id_and_source", unique: true
   end
 
 end

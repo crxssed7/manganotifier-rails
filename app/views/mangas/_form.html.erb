@@ -5,6 +5,11 @@
   </div>
 
   <div>
+    <%= form.label :source, style: "display: block" %>
+    <%= form.collection_select :source, Manga::SOURCES.keys, :to_s, :to_s, {include_blank: false} %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

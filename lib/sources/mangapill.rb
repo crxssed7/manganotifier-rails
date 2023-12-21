@@ -1,53 +1,15 @@
 # frozen_string_literal: true
-require "net/http"
-require "uri"
 
 module Sources
-  class Mangapill
-    attr_accessor :manga
+  class Mangapill < Base
+    private
 
-    def initialize(manga:)
-      @manga = manga
-    end
+    def base_url = "https://mangapill.com/manga/"
 
-    def crawl
-      uri = URI("https://mangapill.com/manga/#{manga.external_id}")
-      res = Net::HTTP.get_response(uri)
-      if res.is_a? Net::HTTPSuccess
-        html = res.body
-        document = Nokogiri::HTML.parse(html)
-        name = document.css("h1")[0].text
-        image = document.css("img")[0]["data-src"]
-        last_chapter = document.css("a.p-1")[0].text
-  
-        manga.name = name
-        manga.last_chapter = last_chapter
-        manga.source = "mangapill"
-        manga.image = image
-        manga.last_refreshed = Time.current
-        return manga.save
-      end
-    end
+    def extract_image(document) = document.css("img")[0]["data-src"]
 
-    def refresh
-      # Get the last chapter of the manga
-      uri = URI("https://mangapill.com/manga/#{manga.external_id}")
-      res = Net::HTTP.get_response(uri)
+    def name_selector = "h1"
 
-      if res.is_a? Net::HTTPOK
-        html = res.body
-        document = Nokogiri::HTML.parse(html)
-        last_chapter = document.css("a.p-1")[0].text
-        
-        original_last_chapter = manga.last_chapter
-        manga.last_chapter = last_chapter
-        manga.last_refreshed = Time.current
-        manga.save
-
-        return true if original_last_chapter != last_chapter
-      end
-
-      false
-    end
+    def last_chapter_selector = "a.p-1"
   end
 end
