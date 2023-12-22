@@ -1,3 +1,6 @@
+notifier_user = ENV["MANGA_NOTIFIER_USER"]
+ip = ENV["MANGA_NOTIFIER_IP"]
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -7,7 +10,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-
+server ip, user: notifier_user, roles: %w[web app db]
 
 # role-based syntax
 # ==================
@@ -21,7 +24,9 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
+role :app, ["#{notifier_user}@#{ip}"]
+role :web, ["#{notifier_user}@#{ip}"]
+role :db, ["#{notifier_user}@#{ip}"]
 
 # Configuration
 # =============
@@ -30,8 +35,6 @@
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
-
-
 
 # Custom SSH Options
 # ==================

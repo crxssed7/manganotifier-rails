@@ -1,16 +1,25 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.1"
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
-set :rvm_ruby_version, "ruby-3.1.2"
-set :default_env, { rvm_bin_path: "~/.rvm/bin" }
+app = "manganotifier"
+notifier_user = ENV["MANGA_NOTIFIER_USER"]
+set :application, app
+set :repo_url, "git@github.com:crxssed7/manganotifier-rails.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, ENV["BRANCH"] || "main"
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, "/var/www/my_app_name"
+set :deploy_to, "/home/#{notifier_user}/#{app}"
+
+set :deploy_via, :remote_cache
+set :use_sudo, false
+
+set :rvm_type, :user
+set :rvm_path, "/home/#{notifier_user}/.rvm"
+
+set :ssh_options, forward_agent: true
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -23,10 +32,10 @@ set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 # set :pty, true
 
 # Default value for :linked_files is []
-# append :linked_files, "config/database.yml", 'config/master.key'
+append :linked_files, "config/database.yml", "config/master.key"
 
 # Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor", "storage"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -39,3 +48,14 @@ set :default_env, { rvm_bin_path: "~/.rvm/bin" }
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  task :restart_sidekiq do
+    on roles(:all) do
+      execute :sudo, :systemctl, "restart", "sidekiq"
+      execute :sudo, :systemctl, "status", "sidekiq"
+    end
+  end
+end
+
+after "deploy", "deploy:restart_sidekiq"
