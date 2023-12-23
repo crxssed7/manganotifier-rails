@@ -6,5 +6,8 @@ Rails.application.routes.draw do
 
   resources :notifiers
 
+  require "sidekiq/web"
+  mount Sidekiq::Web => "/sidekiq"
+
   root "mangas#index"
 end
