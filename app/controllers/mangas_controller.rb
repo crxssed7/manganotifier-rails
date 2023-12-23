@@ -4,7 +4,7 @@ class MangasController < ApplicationController
   before_action :set_manga, only: %i[ show edit update destroy refresh ]
 
   def index
-    @mangas = Manga.all
+    @mangas = Manga.order(last_refreshed: :desc)
   end
 
   def show
