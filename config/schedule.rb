@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every "14 15 * * *" do
+every "0 * * * *" do
   runner "NotifyWorker.perform_now"
 end
