@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :mangas, only: [:index, :show, :destroy, :new, :create] do
     post :refresh, on: :member
     post :refresh_all, on: :collection
