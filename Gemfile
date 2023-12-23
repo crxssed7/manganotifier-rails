@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 5.6"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -38,6 +38,11 @@ gem "redis", "~> 4.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
+
+# For OpenSSL 3.0 in new Ubuntu versions
+gem "net-ssh", "7.2.0"
+gem "ed25519"
+gem "bcrypt_pbkdf"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
@@ -73,9 +78,10 @@ group :development do
   # gem "spring"
 
   # Deployment
-  gem "capistrano", "~> 3.10", require: false
-  gem "capistrano-rails", "~> 1.3", require: false
-  gem "capistrano-rvm"
+  gem "capistrano", "~> 3.17"
+  gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-rvm", git: "https://github.com/capistrano/rvm.git"
+  gem "capistrano3-puma", "~> 5.2"
 end
 
 group :test do
