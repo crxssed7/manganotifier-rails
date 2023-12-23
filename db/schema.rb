@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_12_21_204925) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "mangas", force: :cascade do |t|
     t.string "name"
     t.string "external_id"
@@ -24,8 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_21_204925) do
   end
 
   create_table "mangas_notifiers", id: false, force: :cascade do |t|
-    t.integer "manga_id", null: false
-    t.integer "notifier_id", null: false
+    t.bigint "manga_id", null: false
+    t.bigint "notifier_id", null: false
   end
 
   create_table "notifiers", force: :cascade do |t|
