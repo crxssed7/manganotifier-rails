@@ -2,13 +2,12 @@
 
 module Notifiers
   class Base
-    include MangasHelper
+    attr_reader :manga, :notifier, :image_url
 
-    attr_reader :manga, :notifier
-
-    def initialize(manga:, notifier:)
+    def initialize(manga:, notifier:, image_url:)
       @manga = manga
       @notifier = notifier
+      @image_url = image_url
     end
 
     def notify

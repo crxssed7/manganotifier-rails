@@ -9,7 +9,7 @@ class Notifier < ApplicationRecord
 
   def to_s = name
 
-  def notifier_instance(manga:)
-    NOTIFIERS[notifier_type].new(manga:, notifier: self)
+  def notifier_instance(manga:, image_url:)
+    NOTIFIERS[notifier_type].new(manga:, notifier: self, image_url:)
   end
 end
