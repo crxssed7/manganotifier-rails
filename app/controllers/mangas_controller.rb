@@ -48,7 +48,7 @@ class MangasController < ApplicationController
     response = Net::HTTP.get_response(uri, @manga.source_instance.image_headers)
 
     if response.is_a? Net::HTTPSuccess
-      send_data response.body, type: response["Content-Type"]
+      send_data response.body, type: response["Content-Type"], disposition: "inline"
     else
       render plain: "Image not found", status: 404
     end
