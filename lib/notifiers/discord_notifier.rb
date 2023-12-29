@@ -5,15 +5,16 @@ module Notifiers
     private
 
     def body
-      Rails.logger.info("Notifying Discord webhook")
-      Rails.logger.info(ActionMailer::Base.default_url_options)
+      image = image_url_for(manga:)
+      Rails.logger.infp("Notifying Discord webhook")
+      Rails.logger.info(image)
       {
         'embeds': [
           {
             'title': "#{manga.name}",
             'description': "New chapter is available! \n#{manga.last_chapter}",
             'thumbnail': {
-              'url': UrlHelpers.image_manga_url(manga)
+              'url': image
             },
             'color': 28915
           }
