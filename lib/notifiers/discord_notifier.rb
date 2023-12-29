@@ -9,14 +9,14 @@ module Notifiers
       Rails.logger.info("N_HOST: #{Rails.application.routes.default_url_options[:host]}")
       Rails.logger.info("N_PROTOCOL: #{Rails.application.routes.default_url_options[:protocol]}")
       {
-        'embeds': [
+        "embeds": [
           {
-            'title': "#{manga.name}",
-            'description': "New chapter is available! \n#{manga.last_chapter}",
-            'thumbnail': {
-              'url': Rails.application.routes.url_helpers.image_manga_url(manga)
+            "title": "#{manga.name}",
+            "description": "New chapter is available! \n#{manga.last_chapter}",
+            "thumbnail": {
+              "url": Rails.application.routes.url_helpers.image_manga_url(manga)
             },
-            'color': 28915
+            "color": manga.decimal_colour_code
           }
         ]
       }

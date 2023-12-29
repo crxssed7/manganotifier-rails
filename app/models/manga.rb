@@ -5,6 +5,13 @@ class Manga < ApplicationRecord
     "Mangasee" => Sources::Mangasee
   }
 
+  SOURCE_COLOURS = {
+    "Mangapill" => "#0070f3",
+    "Mangareader" => "#5f25a6",
+    "Mangasee" => "#6589BF"
+  }
+  DEFAULT_COLOUR = "#ff6961"
+
   validates :external_id, presence: true, uniqueness: { scope: :source }
   validates_inclusion_of :source, in: SOURCES.keys, allow_nil: false, allow_blank: false
 
@@ -24,16 +31,11 @@ class Manga < ApplicationRecord
     end
   end
 
-  private
+  def hex_colour_code
+    SOURCE_COLOURS[source].presence || DEFAULT_COLOUR
+  end
 
-  # TODO: Figure out why we can't use url helpers in the lib/ folder
-  def image_url
-    protocol = Rails.application.routes.default_url_options[:protocol]
-    host = Rails.application.routes.default_url_options[:host]
-    port = Rails.env.development? ? ":3000" : ""
-
-    manga_image_path = Rails.application.routes.url_helpers.image_manga_path(self)
-
-    "#{protocol}://#{host}#{port}#{manga_image_path}"
+  def decimal_colour_code
+    hex_colour_code.sub("#", "").hex
   end
 end
