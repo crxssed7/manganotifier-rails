@@ -2,8 +2,6 @@
 
 module Notifiers
   class Base
-    include MangasHelper
-
     attr_reader :manga, :notifier
 
     def initialize(manga:, notifier:)
