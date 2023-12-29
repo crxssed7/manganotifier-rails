@@ -6,7 +6,6 @@ module Notifiers
 
     def body
       Rails.logger.info("Notifying Discord webhook")
-      Rails.logger.info(image)
       Rails.logger.info(ActionMailer::Base.default_url_options)
       {
         'embeds': [
