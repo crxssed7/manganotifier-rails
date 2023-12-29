@@ -15,6 +15,8 @@ class Manga < ApplicationRecord
   end
 
   def refresh
+    Rails.logger.info("M_HOST: #{Rails.application.routes.default_url_options[:host]}")
+    Rails.logger.info("M_PROTOCOL: #{Rails.application.routes.default_url_options[:protocol]}")
     if source_instance.refresh
       notifiers.each do |notifier|
         notifier.notifier_instance(manga: self).notify
