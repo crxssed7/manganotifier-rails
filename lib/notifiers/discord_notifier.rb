@@ -11,7 +11,7 @@ module Notifiers
             'title': "#{manga.name}",
             'description': "New chapter is available! \n#{manga.last_chapter}",
             'thumbnail': {
-              'url': manga.image
+              'url': image_manga_url(manga)
             },
             'color': 28915
           }

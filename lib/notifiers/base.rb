@@ -2,6 +2,8 @@
 
 module Notifiers
   class Base
+    include Rails.application.routes.url_helpers
+
     attr_reader :manga, :notifier
 
     def initialize(manga:, notifier:)
