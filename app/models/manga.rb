@@ -17,7 +17,7 @@ class Manga < ApplicationRecord
   def refresh
     if source_instance.refresh
       notifiers.each do |notifier|
-        notifier.notifier_instance(manga: self, image_url:).notify
+        notifier.notifier_instance(manga: self).notify
       end
     end
   end
