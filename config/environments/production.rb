@@ -64,7 +64,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  default_url_options = {host: ENV["MANGA_NOTIFIER_HOST"], protocol: "https"}
+  default_url_options = {host: "notifier.crxssed.dev", protocol: "https"}
   routes.default_url_options = default_url_options
   config.action_mailer.default_url_options = default_url_options
 
