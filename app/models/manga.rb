@@ -1,7 +1,8 @@
 class Manga < ApplicationRecord
   SOURCES = {
     "Mangapill" => Sources::Mangapill,
-    "Mangareader" => Sources::Mangareader
+    "Mangareader" => Sources::Mangareader,
+    "Mangasee" => Sources::Mangasee
   }
 
   validates :external_id, presence: true, uniqueness: { scope: :source }

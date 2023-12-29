@@ -14,9 +14,9 @@ module Sources
       if response.is_a? Net::HTTPSuccess
         document = parse_html(response.body)
 
-        name = document.css(name_selector)[0].text
+        name = extract_name(document)
         image = extract_image(document)
-        last_chapter = document.css(last_chapter_selector)[0].text
+        last_chapter = extract_last_chapter(document)
 
         manga.name = name
         manga.last_chapter = last_chapter
@@ -33,7 +33,7 @@ module Sources
       if response.is_a? Net::HTTPSuccess
         document = parse_html(response.body)
 
-        last_chapter = document.css(last_chapter_selector)[0].text
+        last_chapter = extract_last_chapter(document)
         original_last_chapter = manga.last_chapter
 
         manga.last_chapter = last_chapter
@@ -72,11 +72,11 @@ module Sources
       raise "Implement in subclass"
     end
 
-    def name_selector
+    def extract_name(document)
       raise "Implement in subclass"
     end
 
-    def last_chapter_selector
+    def extract_last_chapter(document)
       raise "Implement in subclass"
     end
   end

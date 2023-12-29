@@ -12,8 +12,8 @@ module Sources
 
     def extract_image(document) = document.css("img")[0]["data-src"]
 
-    def name_selector = "h1"
+    def extract_name(document) = document.css("h1")[0].text
 
-    def last_chapter_selector = "a.p-1"
+    def extract_last_chapter(document) = document.css("a.p-1")[0].text
   end
 end

@@ -8,8 +8,8 @@ module Sources
 
     def extract_image(document) = document.css("img.manga-poster-img")[0]["src"]
 
-    def name_selector = "h2.manga-name"
+    def extract_name(document) = document.css("h2.manga-name")[0].text
 
-    def last_chapter_selector = "li.chapter-item span.name"
+    def extract_last_chapter(document) = document.css("li.chapter-item span.name")[0].text
   end
 end
