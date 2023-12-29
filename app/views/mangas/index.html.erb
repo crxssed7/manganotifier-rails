@@ -7,7 +7,7 @@
   <% @mangas.each do |manga| %>
     <div class="chip-card">
       <div class="display-flex">
-        <div class="chip-img" style="background-image: url('<%= manga.image %>');"></div>
+        <div class="chip-img" style="background-image: url('<%= image_manga_path(manga) %>');"></div>
         <div>
           <div class="chip-name-wrapper">
             <h5><b><%= manga.name %></b> <i class="text-muted">(<%= manga.source %>)</i></h5>

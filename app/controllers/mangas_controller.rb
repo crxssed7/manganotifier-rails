@@ -1,7 +1,7 @@
 require 'net/http'
 
 class MangasController < ApplicationController
-  before_action :set_manga, only: %i[ show edit update destroy refresh ]
+  before_action :set_manga, only: %i[ show edit update destroy refresh image ]
 
   def index
     @mangas = Manga.order(last_refreshed: :desc)
@@ -41,6 +41,17 @@ class MangasController < ApplicationController
       manga.refresh
     end
     redirect_back(fallback_location: root_path)
+  end
+
+  def image
+    uri = URI(@manga.image)
+    response = Net::HTTP.get_response(uri, @manga.source_instance.image_headers)
+
+    if response.is_a? Net::HTTPSuccess
+      send_data response.body, type: response["Content-Type"]
+    else
+      render plain: "Image not found", status: 404
+    end
   end
 
   private

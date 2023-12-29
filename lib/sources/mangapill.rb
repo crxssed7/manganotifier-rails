@@ -2,6 +2,10 @@
 
 module Sources
   class Mangapill < Base
+    def image_headers
+      {Referer: base_url}
+    end
+
     private
 
     def base_url = "https://mangapill.com/manga/"

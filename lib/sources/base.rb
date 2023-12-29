@@ -46,6 +46,8 @@ module Sources
       false
     end
 
+    def image_headers = {}
+
     private
 
     def get_response
