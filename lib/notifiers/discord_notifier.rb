@@ -6,7 +6,7 @@ module Notifiers
 
     def body
       image = image_url_for(manga:)
-      Rails.logger.infp("Notifying Discord webhook")
+      Rails.logger.info("Notifying Discord webhook")
       Rails.logger.info(image)
       {
         'embeds': [
