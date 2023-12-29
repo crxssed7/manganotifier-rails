@@ -11,7 +11,7 @@ module Notifiers
             'title': "#{manga.name}",
             'description': "New chapter is available! \n#{manga.last_chapter}",
             'thumbnail': {
-              'url': image_manga_url(manga)
+              'url': Rails.application.routes.url_helpers.image_manga_url(manga)
             },
             'color': 28915
           }

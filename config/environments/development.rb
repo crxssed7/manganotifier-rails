@@ -44,7 +44,6 @@ Rails.application.configure do
   default_url_options = {host: "localhost", port: 3000}
   routes.default_url_options = default_url_options
   config.action_mailer.default_url_options = default_url_options
-  config.action_controller.default_url_options = default_url_options
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

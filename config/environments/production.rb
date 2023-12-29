@@ -67,7 +67,6 @@ Rails.application.configure do
   default_url_options = {host: ENV["MANGA_NOTIFIER_HOST"], protocol: "https"}
   routes.default_url_options = default_url_options
   config.action_mailer.default_url_options = default_url_options
-  config.action_controller.default_url_options = default_url_options
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
