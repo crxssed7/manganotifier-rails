@@ -5,13 +5,15 @@ module Notifiers
     private
 
     def body
+      image = image_url_for(manga:)
+      Rails.logger.info(image)
       {
         'embeds': [
           {
             'title': "#{manga.name}",
             'description': "New chapter is available! \n#{manga.last_chapter}",
             'thumbnail': {
-              'url': image_url_for(manga:)
+              'url': image
             },
             'color': 28915
           }
