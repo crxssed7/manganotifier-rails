@@ -97,6 +97,7 @@
           </div>
           <div class="display-flex flex-wrap" style="gap: 8px;">
             <%= link_to "<i class='manga-removeIcon bi bi-eye-fill'></i>".html_safe, manga, class: "manga-removeBtn" %>
+            <%= link_to "<i class='manga-removeIcon bi bi-pencil-fill'></i>".html_safe, edit_manga_path(manga), class: "manga-removeBtn" %>
             <%= button_to "<i class='manga-removeIcon bi bi-arrow-repeat'></i>".html_safe, refresh_manga_path(manga), method: :post, class: "manga-removeBtn" %>
             <%= button_to "<i class='manga-removeIcon bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "manga-removeBtn", data: {turbo_confirm: "Are you sure?"} %>
           </div>

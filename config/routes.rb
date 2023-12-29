@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :mangas, only: [:index, :show, :destroy, :new, :create] do
+  resources :mangas do
     get :image, on: :member
 
     post :refresh, on: :member

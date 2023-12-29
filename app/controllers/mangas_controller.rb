@@ -16,6 +16,9 @@ class MangasController < ApplicationController
     @manga = Manga.new
   end
 
+  def edit
+  end
+
   def create
     @manga = Manga.new(manga_params)
 
@@ -23,6 +26,15 @@ class MangasController < ApplicationController
       redirect_to manga_url(@manga), notice: "Manga was successfully created."
     else
       redirect_to new_manga_path, notice: "Could not create manga."
+    end
+  end
+
+  def update
+    if @manga.update(manga_params)
+      @manga.source_instance.crawl
+      redirect_to manga_path(@manga), notice: "Manga was successfully updated."
+    else
+      redirect_to edit_manga_path(@manga), notice: "Could not update manga."
     end
   end
 
