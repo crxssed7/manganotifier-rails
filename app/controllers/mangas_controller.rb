@@ -3,6 +3,8 @@ require 'net/http'
 class MangasController < ApplicationController
   before_action :set_manga, only: %i[ show edit update destroy refresh image ]
 
+  skip_before_action :authenticate_user!, only: %i[ image ]
+
   def index
     @mangas = Manga.order(last_refreshed: :desc)
   end
