@@ -10,9 +10,9 @@ module Sources
     end
 
     def crawl
-      response = get_response
+      response = get_response(item_url)
       if response.is_a? Net::HTTPSuccess
-        document = parse_html(response.body)
+        document = parse_response(response.body)
 
         name = extract_name(document)
         image = extract_image(document)
@@ -29,9 +29,9 @@ module Sources
     end
 
     def refresh
-      response = get_response
+      response = get_response(refresh_url)
       if response.is_a? Net::HTTPSuccess
-        document = parse_html(response.body)
+        document = parse_response(response.body)
 
         last_chapter = extract_last_chapter(document)
         original_last_chapter = manga.last_chapter
@@ -50,17 +50,19 @@ module Sources
 
     private
 
-    def get_response
-      uri = URI(item_url)
+    def get_response(url)
+      uri = URI(url)
       Net::HTTP.get_response(uri)
     rescue URI::InvalidURIError
       # Just fake a bad request
       Net::HTTPUnknownResponse.new("", "", "")
     end
 
-    def parse_html(html)
-      Nokogiri::HTML.parse(html)
+    def parse_response(text)
+      Nokogiri::HTML.parse(text)
     end
+
+    def refresh_url = item_url
 
     def item_url = "#{base_url}#{manga.external_id}"
 

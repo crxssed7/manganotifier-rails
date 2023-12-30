@@ -2,13 +2,15 @@ class Manga < ApplicationRecord
   SOURCES = {
     "Mangapill" => Sources::Mangapill,
     "Mangareader" => Sources::Mangareader,
-    "Mangasee" => Sources::Mangasee
+    "Mangasee" => Sources::Mangasee,
+    "Mangadex" => Sources::Mangadex
   }
 
   SOURCE_COLOURS = {
     "Mangapill" => "#0070f3",
     "Mangareader" => "#5f25a6",
-    "Mangasee" => "#6589BF"
+    "Mangasee" => "#6589BF",
+    "Mangadex" => "#FF6740"
   }
   DEFAULT_COLOUR = "#ff6961"
 
