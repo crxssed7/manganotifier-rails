@@ -10,6 +10,6 @@ module Sources
 
     def extract_name(document) = document.css("h2.manga-name")[0].text
 
-    def extract_last_chapter(document) = document.css("li.chapter-item span.name")[0].text
+    def extract_last_chapter(document) = document.css("ul#en-chapters li.chapter-item span.name")[0].text
   end
 end
