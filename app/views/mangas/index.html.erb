@@ -1,92 +1,12 @@
-<!-- TODO: Cleanup this file lol -->
 <div class="display-flex">
   <%= link_to "New manga", new_manga_path, class: "btn btn-primary" %>
   <%= button_to "Refresh all", refresh_all_mangas_path, method: :post, class: "btn btn-primary" %>
 </div>
 
-<style>
-.manga {
-  width: 100%;
-  background-color: whitesmoke;
-  padding: 50px 20px;
-
-  -webkit-transition: background-color 250ms linear;
-  -ms-transition: background-color 250ms linear;
-  transition: background-color 250ms linear;
-}
-
-.manga-innerContainer {
-  flex-direction: column;
-}
-
-.manga-coverImg {
-  margin-right: 50px;
-  margin-bottom: 50px;
-  width: 200px;
-  height: 300px;
-  background-color: #29cf95;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 5px;
-  border: 8px solid whitesmoke;
-}
-
-@media only screen and (min-width: 960px) {
-  .manga-innerContainer {
-    flex-direction: row;
-  }
-
-  .manga-coverImg {
-    margin-bottom: 0px;
-  }
-}
-
-.manga-removeIcon {
-  font-size: 30px;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  color: black;
-  width: 45px;
-  height: 45px;
-  text-align: center;
-  display: block;
-}
-
-.manga-removeBtn {
-  border: none;
-  margin: 0;
-  padding: 0;
-  border-radius: 5px;
-}
-
-.manga-name {
-  background-color: whitesmoke;
-  border-radius: 5px;
-  padding: 10px 10px;
-  width: fit-content;
-  display: block;
-}
-
-.manga-values {
-  background-color: whitesmoke;
-  border-radius: 5px;
-  padding: 10px 10px;
-  width: fit-content;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.manga-values p {
-  margin: 0;
-  line-height: 30px;
-}
-</style>
-
-<div id="mangas">
+<div id="mangas" data-controller="custom-colour">
   <% @mangas.each do |manga| %>
 
-    <div class="manga position-relative" data-colour="<%= manga.hex_colour_code %>">
+    <div class="manga position-relative" data-custom-colour-target="colour" data-colour="<%= manga.hex_colour_code %>">
       <div class="manga-innerContainer container-fluid display-flex flex-wrap">
         <div class="manga-coverImg" style="background-image: url('<%= image_manga_path(manga) %>');"></div>
         <div class="manga-details">
@@ -107,33 +27,3 @@
 
   <% end %>
 </div>
-
-<script>
-function applyColours() {
-  var elements = document.querySelectorAll("[data-colour]")
-  elements.forEach(element => {
-    var color = element.getAttribute("data-colour")
-    // element.style.backgroundColor = color
-
-    element.addEventListener(
-      "mouseover",
-      (event) => {
-        // highlight the mouseover target
-        event.currentTarget.style.backgroundColor = color;
-      },
-      false,
-    );
-
-    element.addEventListener(
-      "mouseout",
-      (event) => {
-        // highlight the mouseover target
-        event.currentTarget.style.backgroundColor = "whitesmoke";
-      },
-      false,
-    );
-
-  });
-}
-applyColours()
-</script>
