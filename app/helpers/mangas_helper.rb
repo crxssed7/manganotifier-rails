@@ -4,8 +4,8 @@ module MangasHelper
     minutes_ago = seconds_ago / 60
     hours_ago = minutes_ago / 60
 
-    return "#{hours_ago} hours" if minutes_ago > 60
-    return "#{minutes_ago} minutes" if seconds_ago > 60
-    "#{seconds_ago} seconds"
+    return "#{hours_ago} #{"hour".pluralize(hours_ago)}" if minutes_ago > 60
+    return "#{minutes_ago} #{"minute".pluralize(minutes_ago)}" if seconds_ago > 60
+    "#{seconds_ago} #{"second".pluralize(seconds_ago)}"
   end
 end

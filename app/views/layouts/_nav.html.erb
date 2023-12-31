@@ -12,6 +12,14 @@
         <li>
           <a class="nav-link active" aria-current="page" href="<%= notifiers_url %>">Notifiers</a>
         </li>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to "Add a manga", new_manga_path, class: "nav-link active" %>
+          </li>
+          <li>
+            <%= button_to "Refresh all", refresh_all_mangas_path, method: :post, class: "nav-link active border-0 bg-light" %>
+          </li>
+        <% end %>
         <li>
           <% if user_signed_in? %>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link active border-0 bg-light" %>
