@@ -1,25 +1,21 @@
-<div class="display-flex">
-  <%= link_to "New manga", new_manga_path, class: "btn btn-primary" %>
-  <%= button_to "Refresh all", refresh_all_mangas_path, method: :post, class: "btn btn-primary" %>
-</div>
-
-<div id="mangas" data-controller="custom-colour">
+<div id="mangas" class="allManga" data-controller="custom-colour">
   <% @mangas.each do |manga| %>
 
-    <div class="manga position-relative" data-custom-colour-target="colour" data-colour="<%= manga.hex_colour_code %>">
-      <div class="manga-innerContainer container-fluid display-flex flex-wrap">
-        <div class="manga-coverImg" style="background-image: url('<%= image_manga_path(manga) %>');"></div>
-        <div class="manga-details">
-          <h1 class="manga-name"><b><%= manga.name %></b></h1>
-          <div class="manga-values">
+    <div class="mangaIndex position-relative" data-custom-colour-target="border stripe" data-colour="<%= manga.hex_colour_code %>">
+      <div class="mangaIndex-innerContainer container-fluid display-flex">
+        <div class="mangaIndex-coverImg" style="background-image: url('<%= image_manga_path(manga) %>');" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>"></div>
+        <div class="mangaIndex-details">
+          <h1 class="mangaIndex-name" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>"><b><%= manga.name %></b></h1>
+          <div class="mangaIndex-values" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>">
             <p><strong>Last chapter:</strong> <%= manga.last_chapter %></p>
-            <p><strong>Last refresh:</strong> <%= manga.last_refreshed.strftime("%d/%m/%Y %H:%M") %></p>
+            <p><strong>Last refresh:</strong> <%= refreshed_ago(manga.last_refreshed) %> ago</p>
           </div>
           <div class="display-flex flex-wrap" style="gap: 8px;">
-            <%= link_to "<i class='manga-removeIcon bi bi-eye-fill'></i>".html_safe, manga, class: "manga-removeBtn" %>
-            <%= link_to "<i class='manga-removeIcon bi bi-pencil-fill'></i>".html_safe, edit_manga_path(manga), class: "manga-removeBtn" %>
-            <%= button_to "<i class='manga-removeIcon bi bi-arrow-repeat'></i>".html_safe, refresh_manga_path(manga), method: :post, class: "manga-removeBtn" %>
-            <%= button_to "<i class='manga-removeIcon bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "manga-removeBtn", data: {turbo_confirm: "Are you sure?"} %>
+            <% data = {custom_colour_target: "border", colour: manga.hex_colour_code}%>
+            <%= link_to "<i class='mangaIndex-btnIcon bi bi-eye-fill'></i>".html_safe, manga, class: "mangaIndex-btn", data: %>
+            <%= link_to "<i class='mangaIndex-btnIcon bi bi-pencil-fill'></i>".html_safe, edit_manga_path(manga), class: "mangaIndex-btn", data: %>
+            <%= button_to "<i class='mangaIndex-btnIcon bi bi-arrow-repeat'></i>".html_safe, refresh_manga_path(manga), method: :post, class: "mangaIndex-btn", data: %>
+            <%= button_to "<i class='mangaIndex-btnIcon bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "mangaIndex-btn", data: data.merge({turbo_confirm: "Are you sure?"}) %>
           </div>
         </div>
       </div>

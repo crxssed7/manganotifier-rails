@@ -1,29 +1,10 @@
-<div id="<%= dom_id manga %>">
-  <center>
-    <img src="<%= image_manga_path(manga) %>" class="rounded" max-width="200px" width="200px" alt="<%= manga.name %> Poster">
-    <br/>
-    <br/>
-    <h1><%= manga.name %></h1>
-  </center>
-
-  <p>
-    <strong>Last chapter:</strong>
-    <%= manga.last_chapter %>
-  </p>
-
-  <p>
-    <strong>Last refreshed:</strong>
-    <%= manga.last_refreshed %>
-  </p>
-
-  <p>
-    <strong>Notifiers:</strong>
-    <% manga.notifiers.each do |notifier| %>
-      <%= link_to notifier %>,
-    <% end %>
-  </p>
-
-  <%= button_to "Refresh", refresh_manga_path(manga), method: :post, class: "btn btn-primary" %>
-  <%= button_to "<i class='bi bi-trash3-fill'></i>".html_safe, manga, method: :delete, class: "btn btn-danger" %>
-
+<div id="<%= dom_id manga %>" data-controller="custom-colour">
+  <div data-custom-colour-target="border stripe" data-colour="<%= manga.hex_colour_code %>" class="mangaShow">
+    <div data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>" class="mangaShow-box">
+      <img src="<%= image_manga_path(manga) %>" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>" class="mangaShow-coverImg" />
+      <%= button_to "Refresh", refresh_manga_path(manga), method: :post, form_class: "mangaShow-buttonTo", class: "btn mangaShow-refreshBtn", data: {custom_colour_target: "border", colour: manga.hex_colour_code} %>
+      <%= button_to "Remove", manga, method: :delete, form_class: "mangaShow-buttonTo", class: "btn mangaShow-removeBtn" %>
+      <p class="text-muted"><small>Refreshed <%= refreshed_ago(manga.last_refreshed) %> ago</small></p>
+    </div>
+  </div>
 </div>

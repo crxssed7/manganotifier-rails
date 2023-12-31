@@ -13,7 +13,9 @@
   <body>
     <%= render "layouts/nav" %>
     <main>
-      <p style="color: green"><%= notice %></p>
+      <% if notice %>
+        <div style="position: absolute; margin: 20px; padding: 20px; bottom: 0; right: 0; background-color: whitesmoke; border-radius: 5px; border: 2px solid black;"><%= notice %></div>
+      <% end %>
       <%= yield %>
     </main>
   </body>
