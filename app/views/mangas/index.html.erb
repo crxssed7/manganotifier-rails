@@ -1,7 +1,7 @@
 <div id="mangas" class="allManga" data-controller="custom-colour">
   <% @mangas.each do |manga| %>
 
-    <div class="mangaIndex position-relative" data-custom-colour-target="border stripe" data-colour="<%= manga.hex_colour_code %>">
+    <div class="zebraMode mangaIndex position-relative">
       <div class="mangaIndex-innerContainer container-fluid display-flex">
         <div class="mangaIndex-coverImg" style="background-image: url('<%= image_manga_path(manga) %>');" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>"></div>
         <div class="mangaIndex-details">

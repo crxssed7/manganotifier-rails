@@ -1,5 +1,5 @@
 <div id="<%= dom_id manga %>" data-controller="custom-colour">
-  <div data-custom-colour-target="border stripe" data-colour="<%= manga.hex_colour_code %>" class="mangaShow">
+  <div class="zebraMode mangaShow">
     <div data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>" class="mangaShow-box">
       <img src="<%= image_manga_path(manga) %>" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>" class="mangaShow-coverImg" />
       <%= button_to "Refresh", refresh_manga_path(manga), method: :post, form_class: "mangaShow-buttonTo", class: "btn mangaShow-refreshBtn", data: {custom_colour_target: "border", colour: manga.hex_colour_code} %>

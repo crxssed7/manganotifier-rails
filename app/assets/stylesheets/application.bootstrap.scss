@@ -2,3 +2,8 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'poster_chip';
 @import 'manga';
+
+.zebraMode {
+  border-color: #e8e8e8;
+  background: repeating-linear-gradient(45deg, whitesmoke, whitesmoke 55px, #e8e8e8 55px, #e8e8e8 110px)
+}
