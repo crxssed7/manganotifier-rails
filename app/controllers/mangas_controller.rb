@@ -77,6 +77,6 @@ class MangasController < ApplicationController
   end
 
   def manga_params
-    params.require(:manga).permit(:external_id, :source, notifier_ids: [])
+    params.require(:manga).permit(:external_id, :source, :active, notifier_ids: [])
   end
 end

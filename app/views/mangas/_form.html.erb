@@ -15,6 +15,11 @@
   </div>
 
   <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active, checked: manga.active? %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
