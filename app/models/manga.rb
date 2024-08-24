@@ -14,7 +14,8 @@ class Manga < ApplicationRecord
   }
   DEFAULT_COLOUR = "#ff6961"
 
-  validates :external_id, presence: true, uniqueness: { scope: :source }
+  validates :external_id, presence: true, uniqueness: {scope: :source}
+  validates_presence_of :chapter_number_regex
   validates_inclusion_of :source, in: SOURCES.keys, allow_nil: false, allow_blank: false
 
   has_and_belongs_to_many :notifiers
@@ -24,8 +25,6 @@ class Manga < ApplicationRecord
   end
 
   def refresh
-    Rails.logger.info("M_HOST: #{Rails.application.routes.default_url_options[:host]}")
-    Rails.logger.info("M_PROTOCOL: #{Rails.application.routes.default_url_options[:protocol]}")
     if source_instance.refresh
       notifiers.each do |notifier|
         notifier.notifier_instance(manga: self).notify
@@ -39,5 +38,12 @@ class Manga < ApplicationRecord
 
   def decimal_colour_code
     hex_colour_code.sub("#", "").hex
+  end
+
+  def latest_chapter_number
+    regex = Regexp.new(chapter_number_regex)
+    if (match = last_chapter.match(regex))
+      match[1]
+    end
   end
 end

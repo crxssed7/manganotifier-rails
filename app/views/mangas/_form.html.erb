@@ -15,6 +15,16 @@
   </div>
 
   <div>
+    <%= form.label :chapter_number_regex, style: "display: block" %>
+    <%= form.text_field :chapter_number_regex, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :anilist_id, style: "display: block" %>
+    <%= form.number_field :anilist_id, required: true %>
+  </div>
+
+  <div>
     <%= form.label :active, style: "display: block" %>
     <%= form.check_box :active, checked: manga.active? %>
   </div>

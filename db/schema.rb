@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_06_112410) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_24_194648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "discord_users", force: :cascade do |t|
+    t.string "discord_id", null: false
+    t.string "anilist", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "mangas", force: :cascade do |t|
     t.string "name"
@@ -24,6 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_06_112410) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
+    t.string "chapter_number_regex", default: "^Chapter (\\d+)", null: false
+    t.integer "anilist_id"
     t.index ["external_id", "source"], name: "index_mangas_on_external_id_and_source", unique: true
   end
 
