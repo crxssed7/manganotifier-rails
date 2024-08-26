@@ -20,9 +20,10 @@ module Discord
     private
 
     def register_commands
-      Commands::Setup.register_command(bot: @bot)
-      Commands::List.register_command(bot: @bot)
-      Commands::CatchUp.register_command(bot: @bot)
+      server_id = nil
+      Commands::Setup.register_command(bot: @bot, server_id:)
+      Commands::List.register_command(bot: @bot, server_id:)
+      Commands::CatchUp.register_command(bot: @bot, server_id:)
     end
   end
 end

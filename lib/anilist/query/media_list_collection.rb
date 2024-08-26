@@ -1,16 +1,9 @@
 module Anilist
   module Query
-    class MediaListCollection
+    class MediaListCollection < BaseQuery
       def initialize(username, status)
         @username = username
         @status = status
-      end
-
-      def body
-        {
-          "query" => query,
-          "variables" => variables.to_json
-        }
       end
 
       private
