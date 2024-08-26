@@ -37,13 +37,14 @@ module Discord
           anilist_id = entry[:media][:id]
           name = entry[:media][:title][:english] || entry[:media][:title][:romaji]
           manga = Manga.where(anilist_id:).first
-
-          next if manga.nil?
-
           progress = entry[:progress].to_i
-          latest = manga.latest_chapter_number.to_i
-          if progress < latest
-            content << "- #{name}: #{progress} / #{latest} (#{latest - progress} behind)\n"
+
+          latest = entry[:media][:chapters] || manga&.latest_chapter_number
+
+          next if latest.nil?
+
+          if progress < latest.to_i
+            content << "- #{name}: #{progress} / #{latest} (#{latest.to_i - progress} behind)\n"
           end
         end
 
