@@ -33,6 +33,7 @@ module Discord
 
         content = "**You need to catch up on:**\n"
         entries = list[:entries]
+        results = []
         entries.each do |entry|
           anilist_id = entry[:media][:id]
           name = entry[:media][:title][:english] || entry[:media][:title][:romaji]
@@ -44,9 +45,17 @@ module Discord
           next if latest.nil?
 
           if progress < latest.to_i
-            content << "- #{name}: #{progress} / #{latest} (#{latest.to_i - progress} behind)\n"
+            results.append({
+              name:,
+              progress:,
+              latest:,
+              amount_left: latest.to_i - progress
+            })
           end
         end
+
+        text = results.sort_by { _1[:amount_left] }.map { "- #{_1[:name]}: #{_1[:progress]} / #{_1[:latest]} (#{_1[:amount_left]} behind)" }.join("\n")
+        content << text
 
         event.respond(content:)
       end
