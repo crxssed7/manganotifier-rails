@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_24_194648) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
+ActiveRecord::Schema[8.0].define(version: 2024_08_24_194648) do
   create_table "discord_users", force: :cascade do |t|
     t.string "discord_id", null: false
     t.string "anilist", null: false
@@ -37,8 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_24_194648) do
   end
 
   create_table "mangas_notifiers", id: false, force: :cascade do |t|
-    t.bigint "manga_id", null: false
-    t.bigint "notifier_id", null: false
+    t.integer "manga_id", null: false
+    t.integer "notifier_id", null: false
   end
 
   create_table "notifiers", force: :cascade do |t|
@@ -57,5 +54,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_24_194648) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
 end
