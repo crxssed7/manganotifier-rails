@@ -13,7 +13,7 @@ gem "propshaft"
 gem "sqlite3", ">= 2.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", "~> 5.6"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -77,4 +77,10 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Deployment
+  gem "capistrano", "~> 3.17"
+  gem "capistrano-rails", "~> 1.6"
+  gem "capistrano-rvm", git: "https://github.com/capistrano/rvm.git"
+  gem "capistrano3-puma", "~> 5.2"
 end
