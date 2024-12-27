@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every "30 * * * *" do
+every "*/30 * * * *" do
   runner "NotifyWorker.perform_async"
 end
