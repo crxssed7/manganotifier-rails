@@ -50,12 +50,29 @@ module Sources
 
     private
 
+    def use_proxy? = false
+
     def get_response(url)
       uri = URI(url)
-      Net::HTTP.get_response(uri)
+      use_proxy? ? proxy_response(uri) : response(uri)
     rescue URI::InvalidURIError
       # Just fake a bad request
       Net::HTTPUnknownResponse.new("", "", "")
+    end
+
+    def response(uri)
+      Net::HTTP.get_response(uri)
+    end
+
+    def proxy_response(uri)
+      proxy_host = '168.234.75.168'
+      proxy_port = 80
+      proxy = Net::HTTP::Proxy(proxy_host, proxy_port)
+      request = Net::HTTP::Get.new(uri)
+      request["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+      proxy.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+        http.request(request)
+      end
     end
 
     def parse_response(text)

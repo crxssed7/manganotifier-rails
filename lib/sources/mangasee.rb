@@ -4,6 +4,8 @@ module Sources
   class Mangasee < Base
     private
 
+    def use_proxy? = true
+
     def base_url = "https://mangasee123.com/manga/"
 
     def extract_image(document) = document.css("img.img-fluid.bottom-5")[0]["src"]
