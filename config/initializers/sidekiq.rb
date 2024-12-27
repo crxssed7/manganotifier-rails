@@ -1,6 +1,6 @@
 db = {
-  "development" => 0,
-  "production" => 0,
+  "development" => 2,
+  "production" => 2,
   # Avoid test runs interfering with development (15 is highest database index)
   "test" => 15
 }.fetch(Rails.env.to_s)
