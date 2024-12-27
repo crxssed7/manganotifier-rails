@@ -5,7 +5,7 @@ db = {
   "test" => 15
 }.fetch(Rails.env.to_s)
 
-sidekiq_config = {url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1"), db: db}
+sidekiq_config = {url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1"), db: db, namespace: "manganotifier"}
 
 Sidekiq.configure_server do |config|
   config.logger.level = :debug
