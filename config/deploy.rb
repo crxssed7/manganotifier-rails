@@ -52,8 +52,8 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 namespace :deploy do
   task :restart_sidekiq do
     on roles(:all) do
-      execute :sudo, :systemctl, "restart", "sidekiq"
-      execute :sudo, :systemctl, "status", "sidekiq"
+      execute :sudo, :systemctl, "restart", "sidekiq-manganotifier"
+      execute :sudo, :systemctl, "status", "sidekiq-manganotifier"
     end
   end
 end
