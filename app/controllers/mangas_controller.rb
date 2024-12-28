@@ -77,6 +77,6 @@ class MangasController < ApplicationController
   end
 
   def manga_params
-    params.require(:manga).permit(:external_id, :source, :active, :chapter_number_regex, :anilist_id, notifier_ids: [])
+    params.require(:manga).permit(:external_id, :source, :active, :chapter_number_regex, :anilist_id, :image, notifier_ids: [])
   end
 end

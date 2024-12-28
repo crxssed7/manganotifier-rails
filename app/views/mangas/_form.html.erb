@@ -24,6 +24,13 @@
     <%= form.number_field :anilist_id, required: true %>
   </div>
 
+  <% if manga.persisted? %>
+    <div>
+      <%= form.label :image, style: "display: block" %>
+      <%= form.number_field :image, required: true %>
+    </div>
+  <% end %>
+
   <div>
     <%= form.label :active, style: "display: block" %>
     <%= form.check_box :active, checked: manga.active? %>

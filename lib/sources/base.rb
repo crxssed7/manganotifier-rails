@@ -15,17 +15,17 @@ module Sources
         document = parse_response(response.body)
 
         name = extract_name(document)
-        image = extract_image(document)
+        image = if use_proxy?
+          "https://us9.proxysite.com" + extract_image(document)
+        else
+          extract_image(document)
+        end
         last_chapter = extract_last_chapter(document)
 
         manga.name = name
         manga.last_chapter = last_chapter
         manga.source = self.class.to_s.split("::").last
-        manga.image = if use_proxy?
-          "https://us9.proxysite.com" + image
-        else
-          image
-        end
+        manga.image ||= image
         manga.last_refreshed = Time.current
 
         return manga.save
