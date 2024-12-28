@@ -2,6 +2,10 @@
 
 module Sources
   class Mangasee < Base
+    def image_headers
+      {Referer: "https://us9.proxysite.com/"}
+    end
+
     private
 
     def use_proxy? = true
