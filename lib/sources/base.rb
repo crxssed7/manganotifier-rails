@@ -21,7 +21,11 @@ module Sources
         manga.name = name
         manga.last_chapter = last_chapter
         manga.source = self.class.to_s.split("::").last
-        manga.image = image
+        manga.image = if use_proxy?
+          "https://us9.proxysite.com" + image
+        else
+          image
+        end
         manga.last_refreshed = Time.current
 
         return manga.save
@@ -84,7 +88,6 @@ module Sources
 
       if response.is_a?(Net::HTTPFound)
         location = response['location']
-        puts "Redirected to #{location}"
         fetch_with_redirect(URI(location), form_data, headers, limit - 1)
       else
         response
