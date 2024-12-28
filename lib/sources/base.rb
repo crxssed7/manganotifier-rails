@@ -65,12 +65,30 @@ module Sources
     end
 
     def proxy_response(url)
-      uri = URI("https://13ft.wasimaster.me/article")
+      uri = URI("https://us9.proxysite.com/includes/process.php?action=update")
+      fetch_with_redirect(uri, {d: url}, {Referer: "https://www.proxysite.com/"})
+    end
+
+    def fetch_with_redirect(uri, form_data = {}, headers = {}, limit = 10)
+      return Net::HTTPUnknownResponse.new("", "", "") if limit == 0
+
       https = Net::HTTP.new(uri.host, uri.port)
       https.use_ssl = true
-      request = Net::HTTP::Post.new(uri.path)
-      request.set_form_data({link: url})
-      https.request(request)
+      request = Net::HTTP::Post.new(uri)
+      request.set_form_data(form_data)
+
+      # Set headers
+      headers.each { |key, value| request[key] = value }
+
+      response = https.request(request)
+
+      if response.is_a?(Net::HTTPFound)
+        location = response['location']
+        puts "Redirected to #{location}"
+        fetch_with_redirect(URI(location), form_data, headers, limit - 1)
+      else
+        response
+      end
     end
 
     def parse_response(text)
