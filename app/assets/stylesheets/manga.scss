@@ -130,8 +130,34 @@
   font-weight: bold;
 }
 
+.mangaShow-anilistBtn {
+  max-width: 250px;
+  width: 100%;
+  border: 2px solid #37b1f2;
+  margin: 0 !important;
+  font-weight: bold;
+  display: inline;
+}
+
 .mangaShow-removeBtn:hover {
   border: 2px solid red;
+}
+
+.mangaShow-anilistBtn:hover {
+  border: 2px solid #37b1f2;
+}
+
+.mangaShow-removeBtn {
+  max-width: 250px;
+  width: 100%;
+  border: 2px solid red;
+  margin: 0 !important;
+  font-weight: bold;
+}
+
+.mangaShow-external {
+  max-width: 250px;
+  width: 100%;
 }
 
 .mangaShow-buttonTo {
@@ -159,5 +185,9 @@
     border-bottom: 55px solid transparent;
     border-left: 55px solid transparent;
     border-right: 55px solid transparent;
+  }
+
+  .mangaShow-external {
+    width: 100%;
   }
 }

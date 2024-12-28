@@ -52,6 +52,8 @@ module Sources
 
     def image_headers = {}
 
+    def item_url = "#{base_url}#{manga.external_id}"
+
     private
 
     def use_proxy? = false
@@ -99,8 +101,6 @@ module Sources
     end
 
     def refresh_url = item_url
-
-    def item_url = "#{base_url}#{manga.external_id}"
 
     def base_url
       raise "Implement in subclass"

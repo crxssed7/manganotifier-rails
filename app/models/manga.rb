@@ -46,4 +46,12 @@ class Manga < ApplicationRecord
       match[1]
     end
   end
+
+  def source_link
+    source_instance.item_url
+  end
+
+  def anilist_link
+    "https://anilist.co/manga/#{anilist_id}/"
+  end
 end

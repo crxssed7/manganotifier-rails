@@ -2,6 +2,8 @@
 
 module Sources
   class Mangadex < Base
+    def item_url = "#{base_url}manga/#{manga.external_id}"
+
     private
 
     def parse_response(text)
@@ -9,8 +11,6 @@ module Sources
     end
 
     def refresh_url = "#{item_url}/feed?#{query_params_for_refresh}"
-
-    def item_url = "#{base_url}manga/#{manga.external_id}"
 
     def base_url = "https://api.mangadex.org/"
 

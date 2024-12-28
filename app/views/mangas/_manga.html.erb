@@ -4,6 +4,10 @@
       <img src="<%= image_manga_path(manga) %>" data-custom-colour-target="border" data-colour="<%= manga.hex_colour_code %>" class="mangaShow-coverImg" />
       <%= button_to "Refresh", refresh_manga_path(manga), method: :post, form_class: "mangaShow-buttonTo", class: "btn mangaShow-refreshBtn", data: {custom_colour_target: "border", colour: manga.hex_colour_code} %>
       <%= button_to "Remove", manga, method: :delete, form_class: "mangaShow-buttonTo", class: "btn mangaShow-removeBtn" %>
+      <div class="d-flex gap-2 mangaShow-external">
+        <%= link_to "Source", manga.source_link, class: "btn mangaShow-refreshBtn mangaShow-buttonTo", data: {custom_colour_target: "border", colour: manga.hex_colour_code} %>
+        <%= link_to "AniList", manga.anilist_link, class: "btn mangaShow-anilistBtn mangaShow-buttonTo" %>
+      </div>
       <p class="text-muted"><small>Refreshed <%= refreshed_ago(manga.last_refreshed) %> ago</small></p>
     </div>
   </div>
