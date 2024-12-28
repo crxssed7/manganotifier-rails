@@ -27,7 +27,7 @@
   <% if manga.persisted? %>
     <div>
       <%= form.label :image, style: "display: block" %>
-      <%= form.number_field :image, required: true %>
+      <%= form.text_field :image, required: true %>
     </div>
   <% end %>
 
