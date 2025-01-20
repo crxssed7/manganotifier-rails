@@ -52,7 +52,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Perform background tasks
-gem "sidekiq", "~> 7.2"
+gem "sidekiq", "~> 7.3"
 
 # Schedule background tasks with cron
 gem "whenever", "~> 1.0"
