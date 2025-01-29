@@ -9,7 +9,5 @@ module Sources
     def extract_name(document) = document.css("h1.hidden")[0].text
 
     def extract_last_chapter(document) = document.css("span.grow > span")[0].text
-
-    def actual_id = manga.external_id.split("/")[0]
   end
 end
