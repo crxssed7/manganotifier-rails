@@ -45,8 +45,6 @@ class MangasController < ApplicationController
   end
 
   def refresh
-    Rails.logger.info("C_HOST: #{Rails.application.routes.default_url_options[:host]}")
-    Rails.logger.info("C_PROTOCOL: #{Rails.application.routes.default_url_options[:protocol]}")
     @manga.refresh
     redirect_back(fallback_location: root_path)
   end
