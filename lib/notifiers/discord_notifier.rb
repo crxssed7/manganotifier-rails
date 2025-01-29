@@ -12,7 +12,7 @@ module Notifiers
         "embeds": [
           {
             "title": "#{manga.name}",
-            "description": "New chapter is available! \n#{manga.last_chapter}",
+            "description": "New chapter is available! \n`#{manga.last_chapter}`",
             "thumbnail": {
               "url": Rails.application.routes.url_helpers.image_manga_url(manga)
             },
