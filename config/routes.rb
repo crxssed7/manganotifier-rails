@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :notifiers
 
+  resources :discord_users, only: [:index]
+
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq"
 

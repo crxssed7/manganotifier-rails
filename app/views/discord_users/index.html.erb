@@ -1,0 +1,16 @@
+<table style="margin-top: 60px; width: 100%;">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Catch Up</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @data.each do |row| %>
+      <tr>
+        <td style="vertical-align: top;"><%= row[:discord_user].anilist %></td>
+        <td><pre style="padding: 20px; background-color: #f5f5f5; border: 1px solid #ccc; border-radius: 4px; white-space: pre-wrap;"><%= row[:catch_up] %></pre></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
