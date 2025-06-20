@@ -24,6 +24,7 @@ module Discord
       Commands::Setup.register_command(bot: @bot, server_id:)
       Commands::List.register_command(bot: @bot, server_id:)
       Commands::CatchUp.register_command(bot: @bot, server_id:)
+      Commands::RandomMovie.register_command(bot: @bot, server_id:)
     end
   end
 end
